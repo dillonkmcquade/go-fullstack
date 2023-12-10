@@ -4,7 +4,7 @@ build:
 	go build -o bin/$(project_name) cmd/$(project_name)/main.go
 
 up: 
-	./scripts/up.sh $(project_name)
+	./scripts/up.sh
 
 down:
 	docker compose down 

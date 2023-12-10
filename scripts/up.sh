@@ -1,4 +1,4 @@
 docker compose up -d
-trap "docker compose stop" EXIT
-go run "cmd/$1/main.go"
+trap "docker compose stop && rm -r tmp" EXIT
+air
 

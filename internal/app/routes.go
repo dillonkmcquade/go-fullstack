@@ -26,6 +26,7 @@ func NewRouter(tmpl *template.Template) *chi.Mux {
 	app.Handle("/static/*", http.StripPrefix("/static/", http.FileServer(http.Dir("public"))))
 
 	// Register your routes & handler functions here:
+	app.Handle("/", handlers.NewIndexHandler(tmpl))
 	app.Get("/ping", http.HandlerFunc(handlers.Healthcheck))
 
 	return app
