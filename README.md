@@ -8,6 +8,15 @@ It is minimal and yet provides a working server, development database, and templ
 
 It is intended to be extendable and "no magic" in the sense that all the code is included and not hidden from you (except for the librairies of course). A basic structure has been layed out which I think makes sense.
 
+### Whats included
+
+- [Go-Chi](https://github.com/go-chi/chi) - Lightweight, idiomatic and composable router for building Go HTTP services.
+- [Air](https://github.com/cosmtrek/air) - Hot reload for development server.
+- [HTMX.org](https://htmx.org) - Gives you access to AJAX, CSS Transitions, WebSockets and Server Sent Events directly in HTML.
+- Docker compose configuration for a Postgresql database.
+- Makefile for automating common tasks.
+- [Godotenv](https://github.com/joho/godotenv) for loading environment variables.
+
 # Getting Started
 
 ## Requirements
