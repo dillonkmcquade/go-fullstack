@@ -11,13 +11,19 @@ It is intended to be extendable and "no magic" in the sense that all the code is
 ### Whats included
 
 - [Go-Chi](https://github.com/go-chi/chi) - Lightweight, idiomatic and composable router for building Go HTTP services.
-- [Air](https://github.com/cosmtrek/air) - Hot reload for development server.
+- [Air](https://github.com/cosmtrek/air) configuration for hot reloading of the development server.
 - [HTMX.org](https://htmx.org) - Gives you access to AJAX, CSS Transitions, WebSockets and Server Sent Events directly in HTML.
 - Docker compose configuration for a Postgresql database.
 - Makefile for automating common tasks.
 - [Godotenv](https://github.com/joho/godotenv) for loading environment variables.
 
 # Getting Started
+
+First, install the required go modules.
+
+```bash
+go mod download
+```
 
 ## Requirements
 
@@ -26,6 +32,7 @@ It is intended to be extendable and "no magic" in the sense that all the code is
 - Bash builtins
 - Make
 - [Staticcheck](https://github.com/dominikh/go-tools) & [gosec](https://github.com/securego/gosec)
+- [Air](https://github.com/cosmtrek/air)
 
 ## Environment variables
 
