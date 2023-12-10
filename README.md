@@ -80,6 +80,7 @@ go-fullstack/
 | templates/                    # HTML templates
 | | base.html
 | test/                         # Tests
+| .air.toml
 | .env
 | .env.example
 | .gitignore
