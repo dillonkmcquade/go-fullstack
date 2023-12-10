@@ -78,4 +78,4 @@ go-fullstack/
 
 ## License
 
-[MIT]("./LICENSE") license
+[MIT](./LICENSE) license
