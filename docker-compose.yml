@@ -1,0 +1,31 @@
+services:
+  psql:
+    image: 'postgres:15'
+    ports:
+        - '${FORWARD_DB_PORT:-5432}:5432'
+    environment:
+        POSTGRES_DB: '${DB_DATABASE}'
+        POSTGRES_USER: '${DB_USERNAME}'
+        POSTGRES_PASSWORD: '${DB_PASSWORD:-secret}'
+    volumes:
+        - 'go-fullstack-pgsql:/var/lib/postgresql/data'
+    networks:
+        - go-fullstack
+    healthcheck:
+        test:
+            - CMD
+            - pg_isready
+            - '-q'
+            - '-d'
+            - '${DB_DATABASE}'
+            - '-U'
+            - '${DB_USERNAME}'
+        retries: 3
+        timeout: 5s
+networks:
+    go-fullstack:
+        driver: bridge
+volumes:
+    go-fullstack-pgsql:
+        driver: local
+
