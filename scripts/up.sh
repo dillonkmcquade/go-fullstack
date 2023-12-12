@@ -1,4 +1,4 @@
 docker compose up -d
-trap "docker compose stop && rm -r tmp" EXIT
+trap "docker compose stop" EXIT
 air
 
