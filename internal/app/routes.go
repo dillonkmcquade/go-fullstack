@@ -27,7 +27,7 @@ func NewRouter(tmpl *template.Template) *chi.Mux {
 
 	// Register your routes & handler functions here:
 	app.Handle("/", handlers.NewIndexHandler(tmpl))
-	app.Get("/ping", http.HandlerFunc(handlers.Healthcheck))
+	app.Get("/ping", handlers.Healthcheck)
 
 	return app
 }
