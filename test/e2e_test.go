@@ -6,6 +6,9 @@ import (
 	"testing"
 )
 
+// *** End to End tests ***
+// *** Server must be running in order to use these tests ***
+
 func TestHealthCheck(t *testing.T) {
 	r, err := http.Get("http://localhost:3001/ping")
 	if err != nil {
@@ -17,7 +20,7 @@ func TestHealthCheck(t *testing.T) {
 	err = json.NewDecoder(r.Body).Decode(&exp)
 
 	if v, ok := exp["message"]; v != "pong" || !ok {
-		t.Error("The response did not contain the expected message")
+		t.Error("response should be {'message': 'pong'}")
 	}
 
 	if r.StatusCode != 200 {
@@ -33,7 +36,7 @@ func TestIndex(t *testing.T) {
 	defer r.Body.Close()
 
 	if r.Header.Get("Content-Type") != "text/html; charset=utf-8" {
-		t.Error("Invalid content type")
+		t.Error("Content type should be text/html")
 	}
 
 	if r.StatusCode != 200 {

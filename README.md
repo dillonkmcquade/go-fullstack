@@ -66,7 +66,7 @@ go-fullstack/
 | internal/
 | | | app/
 | | | | app.go                  # Contains some server configuration options
-| | | | parse_templates.go
+| | | | parse_templates.go      # Register functions for use in templates
 | | | | routes.go               # Register your handlers and middleware to the router here
 | | | handlers/                 # Define your http handler functions here
 | | | | healthcheck.go

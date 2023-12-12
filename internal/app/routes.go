@@ -10,8 +10,10 @@ import (
 	"github.com/go-chi/chi/v5/middleware"
 )
 
-// Templates are injected here for use by the http HandlerFuncs
+// Returns a completed *chi.Mux with all middleware and routes registered
 func NewRouter(tmpl *template.Template) *chi.Mux {
+	// Templates are injected here for use by the http HandlerFuncs
+
 	app := chi.NewRouter()
 
 	// Sensible middleware included by default:
