@@ -11,6 +11,9 @@ func Healthcheck(w http.ResponseWriter, r *http.Request) {
 	pong, err := json.Marshal(map[string]string{"message": "pong"})
 	if err != nil {
 		log.Println(err)
+		http.Error(w, "json marshal error", http.StatusInternalServerError)
+		return
 	}
+	w.Header().Set("Content-Type", "application/json")
 	w.Write(pong)
 }

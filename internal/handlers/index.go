@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"html/template"
+	"log"
 	"net/http"
 )
 
@@ -16,5 +17,10 @@ func NewIndexHandler(t *template.Template) *IndexHandler {
 }
 
 func (i *IndexHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	i.tmpl.ExecuteTemplate(w, "base", map[string]string{"HelloWorld": "Hello, World!"})
+	var err error
+	err = i.tmpl.ExecuteTemplate(w, "base", map[string]string{"HelloWorld": "Hello, World!"})
+	if err != nil {
+		log.Printf("executing template: %s", err)
+		http.Error(w, "internal server error", http.StatusInternalServerError)
+	}
 }

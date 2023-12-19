@@ -6,7 +6,7 @@ import (
 )
 
 // Reads all templates from templates/*.html, loads a FuncMap, and returns the template
-func ParseTemplates() *template.Template {
+func Templates() *template.Template {
 	// FuncMap is a mapping of functions that can be used inside templates
 	funcs := template.FuncMap{
 		"toLower": strings.ToLower,

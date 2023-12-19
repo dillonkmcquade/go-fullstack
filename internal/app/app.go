@@ -17,15 +17,15 @@ type App struct {
 }
 
 // Returns a configured instance of http.Server
-func NewApp() *App {
-	tmpl := ParseTemplates()
+func New() *App {
+	tmpl := Templates()
 
-	mux := NewRouter(tmpl)
+	router := Router(tmpl)
 
 	// Server config
 	server := &http.Server{
 		Addr:         ":3001",
-		Handler:      mux,
+		Handler:      router,
 		ReadTimeout:  1 * time.Second,
 		WriteTimeout: 5 * time.Second,
 		// ErrorLog:     *log.Logger,  Optionally provide your own error logger
@@ -46,7 +46,7 @@ func (a *App) Run() {
 	a.start()
 
 	if success := <-a.done; success {
-		log.Println("Server shutdown successfully")
+		log.Println("server shutdown successfully")
 	}
 }
 
@@ -56,7 +56,7 @@ func (a *App) start() {
 	err := a.server.ListenAndServe()
 
 	if err != nil && err != http.ErrServerClosed {
-		log.Println(err)
+		log.Printf("server error: %s", err)
 	}
 }
 
@@ -65,13 +65,13 @@ func (a *App) waitForShutdown() {
 
 	signal.Notify(a.sigChan, syscall.SIGINT, syscall.SIGTERM)
 
-	log.Printf("Received %s, commencing graceful shutdown", <-a.sigChan)
+	log.Printf("received %s, commencing graceful shutdown", <-a.sigChan)
 
 	tc, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
 	if err := a.server.Shutdown(tc); err != nil {
-		log.Printf("Error shutting down server: %s", err)
+		log.Printf("on server shutdown: %s", err)
 		a.done <- false
 		return
 	}

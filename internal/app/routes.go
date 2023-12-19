@@ -11,7 +11,7 @@ import (
 )
 
 // Returns a completed *chi.Mux with all middleware and routes registered
-func NewRouter(tmpl *template.Template) *chi.Mux {
+func Router(tmpl *template.Template) *chi.Mux {
 	// Templates are injected here for use by the http HandlerFuncs
 
 	app := chi.NewRouter()
