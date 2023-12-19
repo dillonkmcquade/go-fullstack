@@ -1,7 +1,5 @@
 # Go-Fullstack
 
-## About
-
 This is an opinionated starter template for making a fullstack project with Go, Go-Chi, go templates, HTMX, and Posgresql.
 
 It is minimal and yet provides a working server, development database, and template setup to get going quickly.
