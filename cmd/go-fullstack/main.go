@@ -13,6 +13,6 @@ func main() {
 		log.Fatal("Error loading .env file")
 	}
 
-	app := app.New()
-	app.Run()
+	server := app.New()
+	server.Run()
 }
