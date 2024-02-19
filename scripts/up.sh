@@ -1,4 +1,12 @@
-docker compose up -d
-trap "docker compose stop" EXIT
+if command -v docker >/dev/null 2>&1
+then
+    docker compose up -d
+    trap "docker compose stop" EXIT
+else command -v podman-compose >/dev/null 2>&1
+    podman-compose up -d
+    trap "podman-compose stop" EXIT
+fi
+
 air
+
 
