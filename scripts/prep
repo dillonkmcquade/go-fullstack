@@ -1,3 +1,5 @@
+#!/usr/bin/env sh
+
 if ! command -v grep;
 then
     echo "missing command: grep"
@@ -45,7 +47,7 @@ dir_name=$(basename "$PWD")
 echo "============ Prepping code repository ============"
 echo ""
 echo "Replacing in-text occurrences of 'go-fullstack' with $dir_name"
-grep --exclude-dir=\*scripts\* -rl "go-fullstack" . | xargs sed -i "s/go-fullstack/$dir_name/g" && echo "Success."
+grep --exclude-dir=\*scripts\* --exclude-dir=\*git\* -rl "go-fullstack" . | xargs sed -i "s/go-fullstack/$dir_name/g" && echo "Success."
 
 
 echo "Replacing file and directory occurrences of 'go-fullstack' with $dir_name"

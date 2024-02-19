@@ -5,7 +5,7 @@ build:
 	go build -o bin/$(project_name) cmd/$(project_name)/main.go
 
 up: 
-	./scripts/up.sh
+	./scripts/up
 
 down:
 	$(docker_command) down 
@@ -16,3 +16,5 @@ test:
 lint:
 	staticcheck ./...
 	gosec ./...
+prep:
+	./scripts/prep

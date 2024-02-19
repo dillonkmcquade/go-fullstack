@@ -21,6 +21,7 @@ First, install the required go modules.
 
 ```bash
 go mod download
+make prep #replaces all occurrences of "go-fullstack with your chosen project name"
 ```
 
 ## Requirements
@@ -29,6 +30,7 @@ go mod download
 - Go 1.21+
 - Bash builtins
 - Make
+- Rename (util-linux)
 - [Staticcheck](https://github.com/dominikh/go-tools) & [gosec](https://github.com/securego/gosec)
 - [Air](https://github.com/cosmtrek/air)
 
