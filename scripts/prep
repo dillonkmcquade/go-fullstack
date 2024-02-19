@@ -1,42 +1,42 @@
 #!/usr/bin/env sh
 
-if ! command -v grep;
+if ! command grep;
 then
     echo "missing command: grep"
     exit 1
 fi
 
-if ! command -v rename;
+if ! command rename;
 then
     echo "missing command: rename"
     exit 1
 fi
 
-if ! command -v basename;
+if ! command basename;
 then
     echo "missing command: basename"
     exit 1
 fi
 
-if ! command -v dirname;
+if ! command dirname;
 then
     echo "missing command: dirname"
     exit 1
 fi
 
-if ! command -v find;
+if ! command find;
 then
     echo "missing command: find"
     exit 1
 fi
 
-if ! command -v xargs;
+if ! command xargs;
 then
     echo "missing command: xargs"
     exit 1
 fi
 
-if ! command -v sed;
+if ! command sed;
 then
     echo "missing command: sed"
     exit 1
@@ -52,3 +52,6 @@ grep --exclude-dir=\*scripts\* --exclude-dir=\*git\* -rl "go-fullstack" . | xarg
 
 echo "Replacing file and directory occurrences of 'go-fullstack' with $dir_name"
 find . -type d -name "go-fullstack" -exec rename -ai "go-fullstack" "$dir_name" "{}" ";" && echo "Success."
+
+echo "============ Finished ============"
+
