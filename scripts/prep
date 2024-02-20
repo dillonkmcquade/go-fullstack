@@ -9,7 +9,7 @@ grep --exclude-dir="scripts" --exclude-dir=".git" -rl $pattern . | while IFS= re
 done
 
 find . -type d -name "*$pattern*" | while IFS= read -r dir; do
-    new_name=$(echo "$dir" | sed -i "s/$pattern/$project_name/")
+    new_name=$(echo "$dir" | sed "s/$pattern/$project_name/")
     mv "$dir" "$new_name"
     echo "Renamed $dir to $new_name"
 done
