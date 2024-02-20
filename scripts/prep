@@ -3,15 +3,23 @@
 pattern="go-fullstack"
 project_name=$(basename "$PWD")
 
-grep --exclude-dir="scripts" --exclude-dir=".git" -rl $pattern . | while IFS= read -r file; do
-    sed -i "s/$pattern/$project_name/g" "$file"
-    echo "Replaced $pattern with $project_name in $file"
-done
+replace_text() {
+    grep --exclude-dir="scripts" --exclude-dir=".git" -rl "$1" . | while IFS= read -r file; do
+        sed -i "s/$1/$2/g" "$file"
+        echo "Replaced $1 with $2 in $file"
+    done
+}
 
-find . -type d -name "*$pattern*" | while IFS= read -r dir; do
-    new_name=$(echo "$dir" | sed "s/$pattern/$project_name/")
-    mv "$dir" "$new_name"
-    echo "Renamed $dir to $new_name"
-done
+replace_names() {
+    find . -type d -name "*$1*" | while IFS= read -r dir; do
+        new_name=$(echo "$dir" | sed "s/$1/$2/")
+        mv "$dir" "$new_name"
+        echo "Renamed $dir to $new_name"
+    done
+
+}
+
+replace_text "$pattern" "$project_name"
+replace_names "$pattern" "$project_name"
 
 echo "Finished"
