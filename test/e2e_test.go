@@ -18,6 +18,9 @@ func TestHealthCheck(t *testing.T) {
 
 	var exp map[string]string
 	err = json.NewDecoder(r.Body).Decode(&exp)
+	if err != nil {
+		t.Error("JSON decoding error")
+	}
 
 	if v, ok := exp["message"]; v != "pong" || !ok {
 		t.Error("response should be {'message': 'pong'}")
