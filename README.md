@@ -30,7 +30,6 @@ make prep #replaces all occurrences of "go-fullstack with your chosen project na
 - Go 1.21+
 - Bash builtins
 - Make
-- Rename (util-linux)
 - [Staticcheck](https://github.com/dominikh/go-tools) & [gosec](https://github.com/securego/gosec)
 - [Air](https://github.com/cosmtrek/air)
 
@@ -48,6 +47,7 @@ Make sure you have docker installed.
 
 All of the available commands are in `Makefile`. Utility scripts are located in `scripts/`.
 
+- `make help` Show available commands
 - `make up` Builds and starts the postgresql container and runs 'go run' on the main package. It runs `docker compose stop` on exit.
 - `make build` builds the binary and puts it in bin/
 - `make test` runs all of the tests
@@ -76,7 +76,8 @@ go-fullstack/
 | | assets/                     # Put your images here
 | | htmx.js
 | scripts/                      # Utility scripts
-| | up.sh*
+| | prep*
+| | up*
 | templates/                    # HTML templates
 | | base.html
 | test/                         # Tests
