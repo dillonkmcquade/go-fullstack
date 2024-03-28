@@ -11,12 +11,10 @@ import (
 )
 
 type App struct {
-	server  *http.Server
-	sigChan chan os.Signal
-	done    chan bool
+	server         *http.Server
+	shutdownSignal chan os.Signal // Signals a shutdown
 }
 
-// Returns a configured instance of http.Server
 func New() *App {
 	tmpl := Templates()
 
@@ -32,9 +30,8 @@ func New() *App {
 	}
 
 	return &App{
-		server:  server,
-		sigChan: make(chan os.Signal, 1),
-		done:    make(chan bool, 1),
+		server:         server,
+		shutdownSignal: make(chan os.Signal, 1),
 	}
 }
 
@@ -44,18 +41,12 @@ func (a *App) Run() {
 	go a.waitForShutdown()
 
 	a.start()
-
-	if success := <-a.done; success {
-		log.Println("server shutdown successfully")
-	}
 }
 
 func (a *App) start() {
 	log.Printf("Listening on port %s", a.server.Addr)
 
-	err := a.server.ListenAndServe()
-
-	if err != nil && err != http.ErrServerClosed {
+	if err := a.server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
 		log.Printf("server error: %s", err)
 	}
 }
@@ -63,18 +54,17 @@ func (a *App) start() {
 func (a *App) waitForShutdown() {
 	// Listen for interrupt or terminate signals
 
-	signal.Notify(a.sigChan, syscall.SIGINT, syscall.SIGTERM)
-
-	log.Printf("received %s, commencing graceful shutdown", <-a.sigChan)
-
+	signal.Notify(a.shutdownSignal, syscall.SIGINT, syscall.SIGTERM)
 	tc, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
-	if err := a.server.Shutdown(tc); err != nil {
-		log.Printf("on server shutdown: %s", err)
-		a.done <- false
-		return
+	select {
+	case <-a.shutdownSignal:
+		if err := a.server.Shutdown(tc); err != nil {
+			log.Fatalf("on server shutdown: %s", err)
+		} else {
+			log.Println("server shutdown successfully")
+		}
+		// Add other signals here
 	}
-
-	a.done <- true
 }
